@@ -1,0 +1,34 @@
+<table class="table table-hover">
+<thead>
+    <tr>
+    <th scope="col">#</th>
+    <th scope="col">Title</th>
+    <th scope="col">Description</th>
+    <th scope="col">Date</th>
+    <th scope="col">Status</th>
+    <th scope="col">Priority</th>
+    <th scope="col">Actions</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let row of rows; let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{row.title}}</td>
+        <td>{{row.description}}</td>
+        <td>
+            {{row.dueDate.start | date: 'MM/dd/yyyy'}} - 
+            {{row.dueDate.finish | date: 'MM/dd/yyyy'}}
+        </td>
+        <td>
+            <span class="badge badge-primary" *ngIf="row.status === 'Todo'">{{row.status}}</span>
+            <span class="badge badge-warning" *ngIf="row.status === 'Doing'">{{row.status}}</span>
+            <span class="badge badge-success" *ngIf="row.status === 'Done'">{{row.status}}</span>
+        </td>
+        <td>{{row.priority}}</td>
+        <td>
+            <button class="btn btn-warning" (click)="onUpdate(i)"><i class="fas fa-edit"></i></button> 
+            <button class="btn btn-danger ml-1" (click)="onDelete(i)"><i class="fas fa-trash"></i></button> 
+        </td>
+    </tr>
+</tbody>
+</table>

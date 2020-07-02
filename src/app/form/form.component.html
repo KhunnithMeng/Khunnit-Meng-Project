@@ -1,0 +1,125 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" >
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Title</label>
+      <input 
+        *ngIf="row"
+        type="title" 
+        class="form-control" 
+        name="title"
+        ngModel
+        id="exampleFormControlInput1" 
+        placeholder="Add Title"
+        required
+        [ngModel]="row.title">
+      <input 
+        *ngIf="!row"
+        type="title" 
+        class="form-control" 
+        name="title"
+        ngModel
+        id="exampleFormControlInput1" 
+        placeholder="Add Title"
+        required>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Description</label>
+      <textarea 
+        *ngIf="row"
+        class="form-control"
+       id="exampleFormControlTextarea1" 
+       rows="3"
+       name="desc" 
+       ngModel
+       required
+       [ngModel]="row.description"
+       ></textarea>
+      <textarea 
+        *ngIf="!row"
+        class="form-control"
+       id="exampleFormControlTextarea1" 
+       rows="3"
+       name="desc" 
+       ngModel
+       required
+       ></textarea>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <label >Start</label>
+                <input type="date" name="start" max="3000-12-31" 
+                        min="1000-01-01" class="form-control"
+                        ngModel required>
+            </div>
+            <div class="col">
+                <label >End</label>
+                <input type="date" name="finish" max="3000-12-31" 
+                        min="1000-01-01" class="form-control"
+                        ngModel required>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <label for="priority">Priority</label>
+                <div class="input-group mb-3">
+                    <select 
+                        class="custom-select" 
+                        id="priority" 
+                        name="priority" 
+                        ngModel>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <!-- <input 
+                    *ngIf="row"
+                    type="text" 
+                    id="priority" 
+                    name="priority" 
+                    ngModel 
+                    class="form-control"
+                    [ngModel]="row.priority"
+                    required>
+                <input 
+                    *ngIf="!row"
+                    type="text" 
+                    id="priority" 
+                    name="priority" 
+                    ngModel 
+                    class="form-control"
+                    required> -->
+            </div>
+            <div class="col">
+                <label for="status">Status</label>
+                <div class="input-group mb-3">
+                <select class="custom-select" id="status" name="status" ngModel>
+                    <option value="Todo">To Do</option>
+                    <option value="Doing">Doing</option>
+                    <option value="Done">Done</option>
+                </select>
+                </div>
+                <!-- <input 
+                    *ngIf="row"
+                    type="text" 
+                    id="status" 
+                    name="status" 
+                    ngModel 
+                    class="form-control"
+                    [ngModel]="row.status"
+                    required>
+                <input 
+                    *ngIf="!row"
+                    type="text" 
+                    id="status" 
+                    name="status" 
+                    ngModel 
+                    class="form-control"
+                    required> -->
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]=!f.valid>Submit</button>
+</form>
