@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Table } from './shared/Table.model';
-import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class TableServiceService {
   table: Table[] = [
     {
-      title: 'CRUD',
+      id: 3243,
+      title: 'title1',
       description: 'this is description',
       dueDate: {
         start: new Date('1/1/2000'),
@@ -17,7 +17,8 @@ export class TableServiceService {
       priority: 'Medium'
     },
     {
-      title: 'CRUD',
+      id: 2434,
+      title: 'title2',
       description: 'this is description',
       dueDate: {
         start: new Date('1/1/2000'),
@@ -25,6 +26,28 @@ export class TableServiceService {
       },
       status: 'Done',
       priority: 'Medium'
+    },
+    {
+      id: 2334,
+      title: 'MVC',
+      description: 'this is description',
+      dueDate: {
+        start: new Date('1/1/2000'),
+        finish: new Date('2/1/2000')
+      },
+      status: 'Done',
+      priority: 'Low'
+    },
+    {
+      id: 5434,
+      title: 'CRUD',
+      description: 'this is description',
+      dueDate: {
+        start: new Date('1/1/2000'),
+        finish: new Date('2/1/2000')
+      },
+      status: 'Done',
+      priority: 'High'
     },
   ]
 
@@ -33,10 +56,11 @@ export class TableServiceService {
   getRows() { return this.table; }
   
   getRow(id: number) {
-    return this.table[id]
+    return this.table.find(t => t.id === id)
   }
 
   addValue(
+    id: number,
     title: string, 
     description: string, 
     start: Date,
@@ -44,6 +68,7 @@ export class TableServiceService {
     priority: string,
     status: string ) {
       this.table.push({
+        id,
         title, 
         description,
         dueDate: {
@@ -55,7 +80,8 @@ export class TableServiceService {
       })
     }
   deleteRow(id: number) {
-    this.table.splice(id, 1);
+    const index = this.table.findIndex(t => t.id === id);
+    this.table.splice(index, 1);
   }
   updateValue(
     id: number,
@@ -65,7 +91,8 @@ export class TableServiceService {
     finish: Date,
     priority: string,
     status: string) {
-      this.table[id] = {
+      let row = {
+        id,
         title,
         description,
         dueDate: {
@@ -75,5 +102,7 @@ export class TableServiceService {
         priority,
         status
       }
+      let selectedRow = this.table.findIndex(el => el.id === id);
+      this.table[selectedRow] = row;
   }
 }

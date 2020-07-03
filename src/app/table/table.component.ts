@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TableServiceService } from '../table-service.service';
 import { Table } from '../shared/Table.model';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +14,12 @@ export class TableComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit(): void {
-    this.rows = this.tableService.getRows();
+    this.tableService.getRows().forEach(row => {
+      if(row.priority === 'High') row['sort'] = 1;
+      if(row.priority === 'Medium') row['sort'] = 2;
+      if(row.priority === 'Low') row['sort'] = 3;
+    }) 
+    this.rows = this.tableService.getRows().sort((a,b) => a['sort'] - b['sort']);
   }
   onDelete(id: number) {
     this.tableService.deleteRow(id);

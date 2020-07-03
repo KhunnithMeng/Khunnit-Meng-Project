@@ -3,7 +3,6 @@ import {NgForm} from '@angular/forms'
 import { TableServiceService } from '../table-service.service';
 import { Table } from '../shared/Table.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-form',
@@ -15,22 +14,19 @@ export class FormComponent implements OnInit {
   id: number;
   start: string;
   finish: string;
+  defaultStatus: string;
+  defaultPriority: string;
+  defaultDate: Date;
   constructor(private tableService: TableServiceService,
               private route: ActivatedRoute,
-              private router: Router,
-              private datePipe: DatePipe) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.row = this.tableService.getRow(this.id);
-    if(this.id || this.id === 0) {
-      this.start = this.datePipe.transform(
-        this.row.dueDate.start, 'MM/dd/yyyy'
-      )
-      this.finish = this.datePipe.transform(
-        this.row.dueDate.finish, 'MM/dd/yyyy'
-      )
-    }
+    this.defaultStatus = 'Todo';
+    this.defaultPriority = 'Medium';
+    this.defaultDate = new Date();
   }
   onSubmit(form: NgForm) {
     if(this.id || this.id === 0) {
@@ -44,7 +40,9 @@ export class FormComponent implements OnInit {
         form.value.status
       );
     } else {
+      const id = +Math.floor(Math.random() * 1000);
       this.tableService.addValue(
+        id,
         form.value.title,
         form.value.desc,
         new Date(form.value.start),
@@ -53,7 +51,7 @@ export class FormComponent implements OnInit {
         form.value.status
       );
     }
-    console.log(form.value.status)
     this.router.navigate(['table']);
   }
+  
 }

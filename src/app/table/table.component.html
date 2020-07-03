@@ -14,7 +14,11 @@
     <tr *ngFor="let row of rows; let i = index">
         <th scope="row">{{i + 1}}</th>
         <td>{{row.title}}</td>
-        <td>{{row.description}}</td>
+        <td 
+            class="text-truncate" 
+            style="max-width: 100px;">
+            {{row.description}}
+        </td>
         <td>
             {{row.dueDate.start | date: 'MM/dd/yyyy'}} - 
             {{row.dueDate.finish | date: 'MM/dd/yyyy'}}
@@ -24,10 +28,14 @@
             <span class="badge badge-warning" *ngIf="row.status === 'Doing'">{{row.status}}</span>
             <span class="badge badge-success" *ngIf="row.status === 'Done'">{{row.status}}</span>
         </td>
-        <td>{{row.priority}}</td>
         <td>
-            <button class="btn btn-warning" (click)="onUpdate(i)"><i class="fas fa-edit"></i></button> 
-            <button class="btn btn-danger ml-1" (click)="onDelete(i)"><i class="fas fa-trash"></i></button> 
+            <span class="alert alert-danger" *ngIf="row.priority === 'High'">{{row.priority}}</span>
+            <span class="alert alert-warning" *ngIf="row.priority === 'Medium'">{{row.priority}}</span>
+            <span class="alert alert-success" *ngIf="row.priority === 'Low'">{{row.priority}}</span>
+        </td>
+        <td>
+            <button class="btn btn-warning" (click)="onUpdate(row.id)"><i class="fas fa-edit"></i></button> 
+            <button class="btn btn-danger ml-1" (click)="onDelete(row.id)"><i class="fas fa-trash"></i></button> 
         </td>
     </tr>
 </tbody>
