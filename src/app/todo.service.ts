@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './shared/Todo.model';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 @Injectable({
   providedIn: 'root'
 })
@@ -59,30 +58,19 @@ export class TodoService {
   }
 
   addValue(todo: Todo) {
-      // this.todos.push({
-      //   id: todo.id,
-      //   title: todo.title,
-      //   description: todo.description,
-      //   dueDate: {
-      //     start: todo.dueDate.start,
-      //     finish: todo.dueDate.finish
-      //   },
-      //   status: todo.status,
-      //   priority: todo.priority,
-      // })
-      this.todos.push(
-        new Todo(
-          todo.id, 
-          todo.title, 
-          todo.description,
-          {
-            start: todo.dueDate.start,
-            finish: todo.dueDate.finish
-          },
-          todo.status,
-          todo.priority
-        ));
-    }
+    this.todos.push(
+      new Todo(
+        todo.id, 
+        todo.title, 
+        todo.description,
+        {
+          start: todo.dueDate.start,
+          finish: todo.dueDate.finish
+        },
+        todo.status,
+        todo.priority
+      ));
+  }
   deleteTodoById(id: number) {
     const index = this.todos.findIndex(t => t.id === id);
     this.todos.splice(index, 1);
