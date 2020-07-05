@@ -10,32 +10,30 @@
     <th scope="col">Actions</th>
     </tr>
 </thead>
-<tbody>
-    <tr *ngFor="let row of rows; let i = index">
-        <th scope="row">{{i + 1}}</th>
-        <td>{{row.title}}</td>
+<tbody *ngFor="let todo of todos; let i = index">
+    <tr [class]="isHigh(todo.priority)">
+        <th scope="todo">{{i + 1}}</th>
+        <td>{{todo.title}}</td>
         <td 
             class="text-truncate" 
             style="max-width: 100px;">
-            {{row.description}}
+            {{todo.description}}
         </td>
         <td>
-            {{row.dueDate.start | date: 'MM/dd/yyyy'}} - 
-            {{row.dueDate.finish | date: 'MM/dd/yyyy'}}
+            {{todo.dueDate.start | date: 'MM/dd/yyyy'}} - 
+            {{todo.dueDate.finish | date: 'MM/dd/yyyy'}}
         </td>
         <td>
-            <span class="badge badge-primary" *ngIf="row.status === 'Todo'">{{row.status}}</span>
-            <span class="badge badge-warning" *ngIf="row.status === 'Doing'">{{row.status}}</span>
-            <span class="badge badge-success" *ngIf="row.status === 'Done'">{{row.status}}</span>
+            <span class="badge badge-primary" *ngIf="todo.status === 'Todo'">{{todo.status}}</span>
+            <span class="badge badge-warning" *ngIf="todo.status === 'Doing'">{{todo.status}}</span>
+            <span class="badge badge-success" *ngIf="todo.status === 'Done'">{{todo.status}}</span>
         </td>
         <td>
-            <span class="alert alert-danger" *ngIf="row.priority === 'High'">{{row.priority}}</span>
-            <span class="alert alert-warning" *ngIf="row.priority === 'Medium'">{{row.priority}}</span>
-            <span class="alert alert-success" *ngIf="row.priority === 'Low'">{{row.priority}}</span>
+            <span>{{todo.priority}}</span>
         </td>
         <td>
-            <button class="btn btn-warning" (click)="onUpdate(row.id)"><i class="fas fa-edit"></i></button> 
-            <button class="btn btn-danger ml-1" (click)="onDelete(row.id)"><i class="fas fa-trash"></i></button> 
+            <button class="btn btn-warning" (click)="onUpdate(todo.id)"><i class="fas fa-edit"></i></button> 
+            <button class="btn btn-danger ml-1" (click)="onDelete(todo.id)"><i class="fas fa-trash"></i></button> 
         </td>
     </tr>
 </tbody>

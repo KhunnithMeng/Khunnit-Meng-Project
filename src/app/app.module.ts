@@ -4,22 +4,25 @@ import { DatePipe } from '@angular/common'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TableComponent } from './table/table.component';
 import { FormComponent } from './form/form.component';
 import { HeaderComponent } from './header/header.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableComponent } from './table/table.component';
+import { FormEditComponent } from './form-edit/form-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
     FormComponent,
-    HeaderComponent
+    HeaderComponent,
+    FormEditComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     DatePipe
