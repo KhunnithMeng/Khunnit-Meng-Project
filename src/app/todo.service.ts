@@ -83,7 +83,7 @@ export class TodoService {
         {start: value.dueDate.start, finish: value.dueDate.finish},
         value.status,
         value.priority);
-      let selectedRow = this.todos.findIndex(el => el.id === value.id);
-      this.todos[selectedRow] = todo;
+      const index = this.todos.findIndex(el => el.id === value.id);
+      this.todos[index] = todo;
   }
 }
